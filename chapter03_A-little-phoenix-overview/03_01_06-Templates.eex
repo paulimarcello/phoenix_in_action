@@ -1,0 +1,52 @@
+# template is responsible for taking the data you've been building up and render sth. for the user
+# it doesn't has to be HTML - but also JSON; XML; CSV etc.
+
+# templates are a mix of HTML and Elixir code
+# file extension is .eex (embedded elixir file)
+# the template doesn't contain all the HTML (that's in the layout file. an app can have multiple layouts)
+
+<h1><%= @post.title %></h1>
+
+<div>
+    <p><%= date(@post.inserted_at) %></p>
+    <%= text_to_html(@post.body) %>
+</div>
+
+<hr />
+
+<h4>Comments</h4>
+<div>
+    <%= for comment <- @post.comments do %>
+        <div>
+            <em><%= comment.name %> says:</em>
+            <%= text_to_html(comment.body) %>
+        </div>
+    <% end %>
+</div>
+
+<hr />
+
+<h5>Post a comment</h5>
+<%= form_for @new_comment, post_comment_path(@conn, :create, @post),
+    fn f -> %>
+    <div>
+        <label>
+            Name:<br />
+            <%= text_input f, :name %>
+        </label>
+    </div>
+    <div>
+        <label>
+            Comment:<br />
+            <%= textarea f, :body %>
+        </label>
+    </div>
+
+    <%= submit "Submit Comment" %>
+<% end %>
+
+<hr />
+
+<div>
+    <span><%= link "Back", to: post_path(@conn, :index) %></span>
+</div>
