@@ -24,3 +24,24 @@ defp deps do
 
 ### clean dependencies from harddrive
 mix deps.clean
+
+### install phoenix   
+mix archive.install hex phx_new 1.4.11   
+also need node.js   
+move to [...]/apps
+mix phx.new.web auction_web --no-ecto
+
+### start phoenix server
+mix phx.server   
+iex -S mix phx.server # allows you to enter commands while also running the server
+
+### add dependency from one app to another app within the same umbrella
+defp deps do   
+[   
+    {:auction, in_umbrella: true}   
+]   
+end   
+
+### view
+use <%= %> for using elixir and then rendering the results   
+use <% %> for using elixir _without_ rendering the resulsts   
