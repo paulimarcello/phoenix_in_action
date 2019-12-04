@@ -44,4 +44,29 @@ end
 
 ### view
 use <%= %> for using elixir and then rendering the results   
-use <% %> for using elixir _without_ rendering the resulsts   
+use <% %> for using elixir _without_ rendering the results   
+
+### ecto create database
+> mix ecto.create
+
+### ecto migration
+migrations are code that allows building up and tearing down databases programmatically
+used, when ecto.schema is defined (or changed)   
+
+_to create a migration:_   
+mix ecto.gen.migration <filename>   
+e.g. mix ecto.gen.migration create_items   
+must be run within the proper /apps/<...>   
+
+_current status of migrations:_   
+mix ecto.migrations   
+> down === hasn't yet been run   
+
+_run a migration:_   
+mix ecto.migrate   
+
+_migration path:_   
+mix ecto migrate  > calls up/0 or determines changes from change/0:  migr1 -> migr2 -> migr3   
+mix ecto.rollback > call down/0 or determines changes from change/0: migr3 -> migr2 -> migr1   
+mix ecto.migrate will migrate up as far as possible   
+mix ecto.rollback will only rollback 1 migration at a time   
